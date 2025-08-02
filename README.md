@@ -11,3 +11,7 @@
 * Front end (Tk)
 
 Current goal: Make it take a picture and output an audio file
+
+## Dependencies:
+* Open-CV (4.1.0)
+* Python (3.13.5)
