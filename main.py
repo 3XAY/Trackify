@@ -12,7 +12,8 @@ model = ResNet50(weights='imagenet')
 
 # Path to the input image
 cap = VideoCapture(0)
-input("Press enter to capture the webcam")
+input("\033[92mPress enter to capture the webcam")
+print("\033[37m")
 ret, frame = cap.read()
 imwrite('captured_image.jpg', frame)
 img_path = 'captured_image.jpg'  # The image to classify
@@ -33,11 +34,12 @@ preds = model.predict(x)
 result = decode_predictions(preds, top=1)[0][0]
 object = result[1]
 chance = result[2]
-print("Object detected: " + object)
+print("\033[92mObject detected: " + object)
 
 remove(img_path) 
 
 API_KEY = input("Enter the API Key from https://www.beatoven.ai/api (50/month): ")
+print("\033[37m")
 BASE_URL = "https://public-api.beatoven.ai"
 
 def create_music(prompt_text):
@@ -89,5 +91,5 @@ if __name__ == "__main__":
     text_prompt = object
     music_url = create_music(text_prompt)
     if music_url:
-        print("Your generated music URL:", music_url)
+        print("\033[92mYour generated music URL:", music_url)
         input("Press enter to exit (click the URL to download)")
