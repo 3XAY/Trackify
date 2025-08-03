@@ -5,12 +5,18 @@ from keras.preprocessing import image
 from keras.applications.resnet50 import preprocess_input, decode_predictions
 import requests
 import time
+import os
 
 # Load the pre-trained ResNet50 model
 model = ResNet50(weights='imagenet')
 
 # Path to the input image
-img_path = 'football.jpg'  # The image to classify
+cap = cv2.VideoCapture(0)
+input("Press enter to capture the webcam")
+ret, frame = cap.read()
+cv2.imwrite('captured_image.jpg', frame)
+img_path = 'captured_image.jpg'  # The image to classify
+cap.release()
 
 # Load and preprocess the image
 img = cv2.imread(img_path)
@@ -19,6 +25,7 @@ x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
 x = preprocess_input(x)
 
+
 # Make predictions
 preds = model.predict(x)
 
@@ -26,8 +33,11 @@ preds = model.predict(x)
 result = decode_predictions(preds, top=1)[0][0]
 object = result[1]
 chance = result[2]
+print("Object detected: " + object)
 
-API_KEY = input("Enter the API Key from Beatoven.ai: ")
+os.remove(img_path) 
+
+API_KEY = input("Enter the API Key from https://www.beatoven.ai/api (50/month): ")
 BASE_URL = "https://public-api.beatoven.ai"
 
 def create_music(prompt_text):
