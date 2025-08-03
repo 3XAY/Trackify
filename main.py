@@ -25,4 +25,4 @@ x = preprocess_input(x)
 preds = model.predict(x)
 
 # Decode and display predictions
-print('Predicted:', decode_predictions(preds, top=3)[0])
+print('Predicted:', decode_predictions(preds, top=1)[0])
