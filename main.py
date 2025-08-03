@@ -20,11 +20,5 @@ x = preprocess_input(x)
 # Make predictions
 preds = model.predict(x)
 
-# Decode the predictions
-decoded = decode_predictions(preds, top=1)[0][0]
-
-# Extract the class label and confidence
-label = decoded[1]           # Predicted class name
-confidence = decoded[2] * 100  # Confidence percentage
-
-print(f"Prediction: {label} ({confidence:.2f}% confidence)")
+# Decode and display predictions
+print('Predicted:', decode_predictions(preds, top=3)[0])
